@@ -1,0 +1,63 @@
+syntax = "proto3";
+package kratos.api;
+
+option go_package = "github.com/minicloudsky/lianjia/internal/conf;conf";
+
+import "google/protobuf/duration.proto";
+
+message Bootstrap {
+  Server server = 1;
+  Data data = 2;
+}
+
+message Server {
+  message HTTP {
+    string network = 1;
+    string addr = 2;
+    google.protobuf.Duration timeout = 3;
+  }
+  message GRPC {
+    string network = 1;
+    string addr = 2;
+    google.protobuf.Duration timeout = 3;
+  }
+  HTTP http = 1;
+  GRPC grpc = 2;
+}
+
+message Data {
+  message Database {
+    string driver = 1;
+    string source = 2;
+  }
+  message Redis {
+    string network = 1;
+    string addr = 2;
+    google.protobuf.Duration read_timeout = 3;
+    google.protobuf.Duration write_timeout = 4;
+    int32 db = 5;
+    string password = 6;
+  }
+  message Kafka {
+    message Topic {
+      string name = 1;
+    }
+    string addr = 1;
+    repeated Topic topics = 2;
+    int64 partition = 3;
+  }
+  message TaskConfig {
+    string name = 1;
+    string cron_expr = 2;
+    bool enable = 3;
+  }
+  message QueueMode {
+    string mode  = 1;
+  }
+
+  Database database = 1;
+  Redis redis = 2;
+  Kafka kafka  = 3;
+  repeated TaskConfig tasks = 4;
+  QueueMode queue = 5;
+}

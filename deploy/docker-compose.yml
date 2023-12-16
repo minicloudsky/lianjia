@@ -1,0 +1,9 @@
+version: '3'
+services:
+  lianjia:
+    image: littlecloudsky/lianjia:master
+    ports:
+      - "8000:8000"
+      - "9000:9000"
+    volumes:
+      - /your_config_file_path/config.yaml:/data/conf/config.yaml

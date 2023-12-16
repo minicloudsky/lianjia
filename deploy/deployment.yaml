@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lianjia-deployment
+  namespace: lianjia
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lianjia
+  template:
+    metadata:
+      labels:
+        app: lianjia
+    spec:
+      containers:
+        - name: lianjia
+          image: littlecloudsky/lianjia:master
+          ports:
+            - containerPort: 8000
+            - containerPort: 9000
+          volumeMounts:
+            - name: lianjia
+              mountPath: /data/conf
+      volumes:
+        - name: lianjia
+          configMap:
+            name: lianjia

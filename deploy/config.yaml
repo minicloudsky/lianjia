@@ -1,0 +1,32 @@
+server:
+  http:
+    addr: 0.0.0.0:8000 # http server addr
+    timeout: 1s
+  grpc:
+    addr: 0.0.0.0:9000 # grpc server addr
+    timeout: 1s
+data:
+  database:
+    driver: mysql
+    source: root:root@tcp(lianjia-mysql-release.lianjia.svc.cluster.local:3306)/lianjia?parseTime=True&loc=Asia%2FShanghai # mysql conn info
+  redis:
+    network: tcp
+    addr: lianjia-redis-release-master.lianjia.svc.cluster.local:6379 # redis conn addr
+    db: 0
+    password: "123456"   # redis password
+    read_timeout: 0.2s
+    write_timeout: 0.2s
+  kafka:
+    addr: localhost:9092,localhost:9093,localhost:9094 # kafka brokers addr
+    topics:
+      - name: lianjiaershoufang
+      - name: lianjialoupan
+      - name: lianjiazufang
+      - name: lianjiacommercial
+    partition: 1
+  tasks:
+    - name: fetch_lianjia_house
+      cron_expr: "30 10 * * *" # crawl task execute time cron expr
+      enable: true
+  queue:
+    mode: channel

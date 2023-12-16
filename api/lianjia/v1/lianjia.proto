@@ -1,0 +1,80 @@
+syntax = "proto3";
+
+package lianjia.v1;
+
+import "google/api/annotations.proto";
+import "validate/validate.proto";
+
+option go_package = "github.com/minicloudsky/lianjia/api/lianjia/v1;v1";
+option java_multiple_files = true;
+option java_package = "dev.kratos.api.lianjia.v1";
+option java_outer_classname = "LianjiaProtoV1";
+
+service Lianjia {
+  rpc ListErshoufang (ListErshoufangRequest) returns (ListErshoufangReply) {
+    option (google.api.http) = {
+      get: "/lianjia/ershoufang/list"
+    };
+  }
+}
+
+message ListErshoufangRequest {
+  int32 page = 1 [(validate.rules).int32 = {gt:0}];
+  int32 size = 2 [(validate.rules).int32 = {gt:0, lte: 100}];
+  string query = 3;
+}
+
+message ErShouFangInfo {
+  int64 city_id = 1;
+  string house_code = 2;
+  int64 resblock_id = 3;
+  string title = 4;
+  string desc = 5;
+  string reco_desc = 6;
+  float total_price = 7;
+  float unit_price = 8;
+  string jump_url = 9;
+  string list_picture_url = 10;
+  int32 house_status = 11;
+  int32 is_ctype_house = 12;
+  string fb_expo_id = 13;
+  int32 ye_zhu_tuijian_status = 14;
+  int32 haofang_status = 15;
+  int32 yezhu_pay_status = 16;
+  int32 vr_status = 17;
+  int32 key_status = 18;
+  int32 new_status = 19;
+  string brand_title = 20;
+  string hot_top_dsp_agent_uc_id = 21;
+  string hot_top_dig_v = 22;
+  int32 hot_top = 23;
+  int32 sell_price_status = 24;
+  int32 price_listing_gov_cn = 25;
+  int32 unit_price_gov = 26;
+  string total_price_prefix = 27;
+  string total_price_title = 28;
+  string total_price_suffix = 29;
+  string unit_price_prefix = 30;
+  string unit_price_title = 31;
+  string unit_price_suffix = 32;
+  string price_info_list_total_price_prefix = 33;
+  string price_info_list_total_price_str = 34;
+  string price_info_list_total_price_suffix = 35;
+  string price_info_list_unit_price_prefix = 36;
+  string price_info_list_unit_price_str = 37;
+  string price_info_list_unit_price_suffix = 38;
+  string tags = 39;
+  string layout = 40;
+  float area = 41;
+  string direction = 42;
+  string community = 43;
+  string district = 44;
+  string street = 45;
+  string floor = 46;
+  int32 total_floor = 47;
+}
+
+message ListErshoufangReply {
+  repeated ErShouFangInfo data = 1;
+  int32 total = 2;
+}
