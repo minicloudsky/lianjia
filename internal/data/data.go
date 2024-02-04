@@ -37,7 +37,7 @@ type Data struct {
 type BaseModel struct {
 	ID         int64      `gorm:"primary_key;type:bigint;" json:"id"`
 	CreateTime *time.Time `gorm:"column:create_time;type:datetime not null;default:CURRENT_TIMESTAMP();comment:创建时间" json:"created_at"`
-	UpdateTime *time.Time `gorm:"column:update_time;type:datetime on update current_timestamp;comment:更新时间" json:"updated_at"`
+	CrawlDate  *time.Time `gorm:"column:crawl_date;type:date;default:(CURRENT_DATE);comment:爬取日期" json:"crawl_date"`
 }
 
 type contextTransactionKey struct{}

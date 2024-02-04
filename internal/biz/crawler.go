@@ -200,21 +200,25 @@ func (uc *LianjiaUsecase) poolFunc(i interface{}) {
 	case HouseTypeErshoufang:
 		err := uc.ListCityErshouFang(ctx, city)
 		if err != nil {
+			uc.log.Errorf("ListCityErshouFang err! %v", err)
 			return
 		}
 	case HouseTypeLoupan:
 		err := uc.ListCityLoupan(ctx, city)
 		if err != nil {
+			uc.log.Errorf("ListCityLoupan err! %v", err)
 			return
 		}
 	case HouseTypeCommercial:
 		err := uc.ListCityCommercial(ctx, city)
 		if err != nil {
+			uc.log.Errorf("ListCityCommercial err! %v", err)
 			return
 		}
 	case HouseTypeZufang:
 		err := uc.ListCityZufang(ctx, city)
 		if err != nil {
+			uc.log.Errorf("ListCityZufang err! %v", err)
 			return
 		}
 	}
