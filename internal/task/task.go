@@ -9,6 +9,7 @@ import (
 	"github.com/minicloudsky/lianjia/internal/biz"
 	"github.com/minicloudsky/lianjia/internal/conf"
 	"github.com/minicloudsky/lianjia/internal/service"
+	"github.com/minicloudsky/lianjia/pkg/system_stat"
 	"github.com/redis/go-redis/v9"
 	"time"
 )
@@ -59,6 +60,9 @@ func NewTaskScheduler(confData *conf.Data, uc *biz.LianjiaUsecase, svc *service.
 }
 
 func (taskScheduler *TaskScheduler) StartAllTask() error {
+	info := system_stat.StatCpuMemory()
+	taskScheduler.log.Infof("---current system info--- CPU: %d cores, Memory: %d MB",
+		info.NumCpu, info.Memory)
 	for _, task := range taskScheduler.confData.Tasks {
 		if task.Enable {
 			taskFunc, ok := FuncMap[task.Name]
