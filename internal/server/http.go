@@ -5,6 +5,7 @@ import (
 	"github.com/go-kratos/kratos/v2/middleware/recovery"
 	"github.com/go-kratos/kratos/v2/transport/http"
 	"github.com/go-kratos/kratos/v2/transport/http/pprof"
+	"github.com/go-kratos/swagger-api/openapiv2"
 	v1 "github.com/minicloudsky/lianjia/api/lianjia/v1"
 	"github.com/minicloudsky/lianjia/internal/conf"
 	"github.com/minicloudsky/lianjia/internal/service"
@@ -32,6 +33,8 @@ func NewHTTPServer(c *conf.Server, lianjia *service.Service, logger log.Logger) 
 	srv.Handle("/debug/pprof/profile", pprof.NewHandler())
 	srv.Handle("/debug/pprof/symbol", pprof.NewHandler())
 	srv.Handle("/debug/pprof/trace", pprof.NewHandler())
+	h := openapiv2.NewHandler()
+	srv.HandlePrefix("/q/", h)
 	v1.RegisterLianjiaHTTPServer(srv, lianjia)
 	return srv
 }

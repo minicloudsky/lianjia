@@ -45,13 +45,11 @@ components:
             type: object
             properties:
                 cityId:
-                    type: integer
-                    format: int64
+                    type: string
                 houseCode:
                     type: string
                 resblockId:
-                    type: integer
-                    format: int64
+                    type: string
                 title:
                     type: string
                 desc:
